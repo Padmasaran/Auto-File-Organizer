@@ -34,8 +34,6 @@ def FileOrganizer(mypath):
     #Retrieve the file format
     for i in files:
         file_format = '.'+str.lower(i.split('.')[-1])
-        print(i)
-        print(file_format)
         new_dir = Format_Mapping.get(file_format)
     #If not in mapping, assign as 'Misc'
         if new_dir is None:
