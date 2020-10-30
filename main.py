@@ -1,4 +1,4 @@
-import os
+import os, time
 from os import listdir
 from os.path import isfile,join,isdir
 import shutil
@@ -34,8 +34,6 @@ def FileOrganizer(mypath):
     #Retrieve the file format
     for i in files:
         file_format = '.'+str.lower(i.split('.')[-1])
-        print(i)
-        print(file_format)
         new_dir = Format_Mapping.get(file_format)
     #If not in mapping, assign as 'Misc'
         if new_dir is None:
@@ -53,4 +51,14 @@ def FileOrganizer(mypath):
 if __name__ == "__main__":
     #Provide your source directory here
     mypath = r'C:\Users\USER\Downloads'
-    FileOrganizer(mypath)
+
+    #Detect change by comparing with previous state
+    before = dict ([(f, None) for f in os.listdir (mypath)])
+
+    while 1:
+        time.sleep (10)
+        after = dict ([(f, None) for f in os.listdir (mypath)])
+        added = [f for f in after if not f in before]
+        if added: 
+            FileOrganizer(mypath)
+        before = after
